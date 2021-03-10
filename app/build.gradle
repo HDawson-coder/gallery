@@ -64,6 +64,18 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'androidx.wear:wear:1.0.0'
 
+    //Gson (Google JSON) dependency
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    // Retrofit (REST client) with ReactiveX & Gson integration
+    def retrofit_version = '2.9.0'
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+
+    // OkHttp logging dependency
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
