@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.gallery.service;
 
 import android.content.Context;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import edu.cnm.deepdive.gallery.model.User;
 import io.reactivex.Scheduler;
 import io.reactivex.Single;
@@ -17,6 +18,10 @@ public class UserRepository {
     this.context = context;
     signInService = GoogleSignInService.getInstance();
     webService = GalleryServiceProxy.getInstance();
+  }
+
+  public GoogleSignInAccount getAccount() {
+    return signInService.getAccount();
   }
 
   public Single<User> getUserProfile() {
