@@ -11,6 +11,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import edu.cnm.deepdive.gallery.BuildConfig;
+import io.reactivex.Single;
 
 public class GoogleSignInService {
 
@@ -26,7 +27,7 @@ public class GoogleSignInService {
         .requestId()
         .requestProfile()
         .requestIdToken(BuildConfig.CLIENT_ID)
-    .build();
+        .build();
     client = GoogleSignIn.getClient(context, options);
   }
 
@@ -42,9 +43,13 @@ public class GoogleSignInService {
     return account;
   }
 
-  public Task<GoogleSignInAccount> refresh() {
-    return client.silentSignIn()
-        .addOnSuccessListener(this::setAccount);
+  public Single<GoogleSignInAccount> refresh() {
+    return Single.create((emitter) ->
+        client.silentSignIn()
+            .addOnSuccessListener(this::setAccount)
+            .addOnSuccessListener(emitter::onSuccess)
+            .addOnFailureListener(emitter::onError)
+    );
   }
 
   public void startSignIn(Activity activity, int requestCode) {
@@ -72,12 +77,13 @@ public class GoogleSignInService {
 
   public void setAccount(GoogleSignInAccount account) {
     this.account = account;
-    if(account != null) {
-      Log.d(getClass().getSimpleName() + " Bearer Token " , account.getIdToken());
+    if (account != null) {
+      Log.d(getClass().getSimpleName() + " Bearer Token ", account.getIdToken());
     }
   }
 
   private static class InstanceHolder {
+
     private static final GoogleSignInService INSTANCE = new GoogleSignInService();
   }
 }
