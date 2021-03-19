@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'androidx.navigation.safeargs'
 
 static def getProperty(String filename, String property) {
     Properties properties = new Properties()
@@ -12,7 +13,7 @@ static def quoted(String value) {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "edu.cnm.deepdive.gallery"
@@ -47,6 +48,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    //noinspection GroovyAssignabilityCheck
     buildFeatures {
         viewBinding true
     }
@@ -56,13 +58,16 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
+
+    implementation 'androidx.fragment:fragment:1.3.1'
+
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.navigation:navigation-fragment:2.3.3'
-    implementation 'androidx.navigation:navigation-ui:2.3.3'
+
+    implementation "androidx.navigation:navigation-fragment:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui:$navigationVersion"
 
     //Google Sign-in dependency
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'androidx.wear:wear:1.0.0'
 
     //Gson (Google JSON) dependency
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -73,6 +78,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+
+    // Picasso Library
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     // OkHttp logging dependency
     implementation 'com.squareup.okhttp3:logging-interceptor:4.9.0'

@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.squareup.picasso.Picasso;
 import edu.cnm.deepdive.gallery.R;
 import edu.cnm.deepdive.gallery.databinding.FragmentUploadPropertiesBinding;
 import edu.cnm.deepdive.gallery.viewmodel.MainViewModel;
@@ -24,7 +25,7 @@ public class UploadPropertiesFragment extends DialogFragment {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    // TODO Get Uri from parameters.
+    uri = UploadPropertiesFragmentArgs.fromBundle(getArguments()).getContentUri();
   }
 
   @NonNull
@@ -52,7 +53,10 @@ public class UploadPropertiesFragment extends DialogFragment {
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-
+    Picasso
+        .get() //picasso
+        .load(uri) //RequestCreator
+        .into(binding.image);
     // TODO Setup viewModel & observe as necessary.
   }
 }
