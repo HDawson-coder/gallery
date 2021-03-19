@@ -3,9 +3,13 @@ package edu.cnm.deepdive.gallery.controller;
 import android.app.Dialog;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog.Builder;
 import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +19,7 @@ import edu.cnm.deepdive.gallery.R;
 import edu.cnm.deepdive.gallery.databinding.FragmentUploadPropertiesBinding;
 import edu.cnm.deepdive.gallery.viewmodel.MainViewModel;
 
-public class UploadPropertiesFragment extends DialogFragment {
+public class UploadPropertiesFragment extends DialogFragment implements TextWatcher {
 
   private FragmentUploadPropertiesBinding binding;
   private Uri uri;
@@ -33,14 +37,14 @@ public class UploadPropertiesFragment extends DialogFragment {
   public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
     binding = FragmentUploadPropertiesBinding.inflate(
         LayoutInflater.from(getContext()), null, false);
-    dialog = new AlertDialog.Builder(getContext())
+    dialog = new Builder(getContext())
         .setIcon(R.drawable.ic_upload)
-        .setTitle("Upload Properties")
+        .setTitle(R.string.upload_properties_title)
         .setView(binding.getRoot())
         .setNeutralButton(android.R.string.cancel, (dlg, which) -> {/* nothing done if cancel upload.*/})
         .setPositiveButton(android.R.string.ok,(dlg, which) -> {/*TODO Start upload process*/})
         .create();
-    // TODO attach text listener to validate fields.
+    dialog.setOnShowListener((dlg) -> checkSubmitConditions());
     return dialog;
   }
 
@@ -59,4 +63,23 @@ public class UploadPropertiesFragment extends DialogFragment {
         .into(binding.image);
     // TODO Setup viewModel & observe as necessary.
   }
+
+
+  @Override
+  public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+  }
+
+  @Override
+  public void onTextChanged(CharSequence s, int start, int before, int count) {
+  }
+
+  @Override
+  public void afterTextChanged(Editable s) {
+    checkSubmitConditions();
+  }
+  private void checkSubmitConditions() {
+    Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+    positive.setEnabled(!binding.title.getText().toString().trim().isEmpty());
+  }
+
 }

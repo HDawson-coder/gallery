@@ -5,7 +5,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:padding="8dp"
+  android:padding="@dimen/margin_size"
   tools:context=".controller.UploadPropertiesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,21 +14,22 @@
 
         <ImageView
           android:id="@+id/image"
-          android:layout_width="0dp"
+          android:layout_width="@dimen/layout_width"
           android:layout_height="wrap_content"
           android:scaleType="fitCenter"
           android:adjustViewBounds="true"
-          android:layout_margin="8dp"
+          android:layout_margin="@dimen/margin_size"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintWidth_percent="0.5"
           tools:ignore="ContentDescription"/>
 
         <com.google.android.material.textfield.TextInputLayout
           android:id="@+id/title_layout"
-          android:layout_width="0dp"
+          android:layout_width="@dimen/layout_width"
           android:layout_height="wrap_content"
-          android:layout_margin="8dp"
+          android:layout_margin="@dimen/margin_size"
           app:hintEnabled="true"
           app:hintAnimationEnabled="true"
           app:layout_constraintTop_toBottomOf="@+id/image"
@@ -39,7 +40,7 @@
               android:id="@+id/title"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:hint="Title of image"
+              android:hint="@string/title_of_image"
               android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -48,7 +49,7 @@
           android:id="@+id/description_layout"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_margin="8dp"
+          android:layout_margin="@dimen/margin_size"
           app:hintEnabled="true"
           app:hintAnimationEnabled="true"
           app:layout_constraintTop_toBottomOf="@+id/title_layout"
@@ -59,7 +60,7 @@
               android:id="@+id/description"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:hint="Description of image"
+              android:hint="@string/description_of_image"
               android:inputType="textMultiLine"
               android:minLines="3"
               android:maxLines="3"/>
