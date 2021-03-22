@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.lifecycle.ViewModelProvider;
 import com.squareup.picasso.Picasso;
 import edu.cnm.deepdive.gallery.R;
 import edu.cnm.deepdive.gallery.databinding.FragmentUploadPropertiesBinding;
@@ -42,7 +43,7 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
         .setTitle(R.string.upload_properties_title)
         .setView(binding.getRoot())
         .setNeutralButton(android.R.string.cancel, (dlg, which) -> {/* nothing done if cancel upload.*/})
-        .setPositiveButton(android.R.string.ok,(dlg, which) -> {/*TODO Start upload process*/})
+        .setPositiveButton(android.R.string.ok,(dlg, which) -> upload()) /*uploads picture because user hit ok*/
         .create();
     dialog.setOnShowListener((dlg) -> checkSubmitConditions());
     return dialog;
@@ -54,6 +55,7 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
     return binding.getRoot();
   }
 
+  @SuppressWarnings("ConstantConditions")
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
@@ -61,7 +63,9 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
         .get() //picasso
         .load(uri) //RequestCreator
         .into(binding.image);
-    // TODO Setup viewModel & observe as necessary.
+    binding.title.addTextChangedListener(this); //allows user to select ok after inputting data
+    viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+    // TODO Observe as necessary.
   }
 
 
@@ -79,7 +83,15 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
   }
   private void checkSubmitConditions() {
     Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+    //noinspection ConstantConditions
     positive.setEnabled(!binding.title.getText().toString().trim().isEmpty());
+  }
+
+  @SuppressWarnings("ConstantConditions")
+  private void upload() {
+    String title = binding.title.getText().toString().trim();
+    String description = binding.description.getText().toString().trim();
+    viewModel.store(uri, title, (description.isEmpty() ? null : description));
   }
 
 }

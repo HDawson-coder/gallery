@@ -84,9 +84,6 @@ public class GoogleSignInService {
 
   public void setAccount(GoogleSignInAccount account) {
     this.account = account;
-    if (account != null) {
-      Log.d(getClass().getSimpleName() + " Bearer Token ", account.getIdToken());
-    }
   }
 
   private static class InstanceHolder {
