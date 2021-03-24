@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.gallery.controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import edu.cnm.deepdive.gallery.NavGraphDirections;
+import edu.cnm.deepdive.gallery.NavGraphDirections.OpenUploadProperties;
 import edu.cnm.deepdive.gallery.R;
 import edu.cnm.deepdive.gallery.adapter.GalleryAdapter;
 import edu.cnm.deepdive.gallery.databinding.FragmentGalleryBinding;
@@ -23,8 +28,10 @@ import java.util.List;
 public class GalleryFragment extends Fragment {
 
   private static final int PICK_IMAGE_REQUEST = 1023;
+
   private MainViewModel viewModel;
   private GalleryAdapter adapter;
+  private FragmentGalleryBinding binding;
   //fields
 
   @Override
@@ -41,17 +48,38 @@ public class GalleryFragment extends Fragment {
 
   @Override
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-    return super.onOptionsItemSelected(item);
+    boolean handled = true;
+    //noinspection SwitchStatementWithTooFewBranches
+    switch (item.getItemId()) {
+      case R.id.action_refresh:
+        viewModel.loadImages();
+        break;
+      default:
+        handled = super.onOptionsItemSelected(item);
+    }
+    return handled;
+  }
+
+  @Override
+  public void onActivityResult(int requestCode, int resultCode,
+      @Nullable Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
+      OpenUploadProperties action = NavGraphDirections.openUploadProperties(data.getData());
+      Navigation.findNavController(binding.getRoot()).navigate(action);
+    }
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    edu.cnm.deepdive.gallery.databinding.FragmentGalleryBinding binding = FragmentGalleryBinding
+    binding = FragmentGalleryBinding
         .inflate(inflater, container, false);
     Context context = getContext();
     int span = (int) Math.floor(context.getResources().getDisplayMetrics().widthPixels
-    / context.getResources().getDimension(R.dimen.gallery_item_width));
+        / context.getResources().getDimension(R.dimen.gallery_item_width));
+    GridLayoutManager layoutManager = new GridLayoutManager(context, span);
+    binding.galleryView.setLayoutManager(layoutManager);
     adapter = new GalleryAdapter(context);
     binding.galleryView.setAdapter(adapter);
     binding.addImage.setOnClickListener((v) -> pickImage());
@@ -83,6 +111,7 @@ public class GalleryFragment extends Fragment {
       adapter.notifyItemInserted(0);
     }
   }
+
   private void updateGallery(List<Image> images) {
     adapter.getImages().clear();
     adapter.getImages().addAll(images);
