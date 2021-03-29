@@ -2,17 +2,13 @@ package edu.cnm.deepdive.gallery.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import android.view.View;
-
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import edu.cnm.deepdive.gallery.R;
 import edu.cnm.deepdive.gallery.service.GoogleSignInService;
 import edu.cnm.deepdive.gallery.viewmodel.MainViewModel;
@@ -49,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-
     boolean handled = true;
     switch (item.getItemId()) {
       case R.id.sign_out:
@@ -58,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
       default:
         handled = super.onOptionsItemSelected(item);
     }
-
     return handled;
   }
 

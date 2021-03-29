@@ -61,7 +61,7 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
   }
 
   public void store(Uri uri, String title, String description) {
-    throwable.setValue(null);
+    throwable.postValue(null);
     pending.add(
         imageRepository
             .add(uri, title, description)

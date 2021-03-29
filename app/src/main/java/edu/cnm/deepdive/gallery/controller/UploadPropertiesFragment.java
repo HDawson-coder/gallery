@@ -81,6 +81,7 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
   public void afterTextChanged(Editable s) {
     checkSubmitConditions();
   }
+
   private void checkSubmitConditions() {
     Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
     //noinspection ConstantConditions
