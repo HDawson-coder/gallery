@@ -37,7 +37,7 @@
           app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-              android:id="@+id/title"
+              android:id="@+id/gallery_title"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:hint="@string/title_of_image"
@@ -57,7 +57,7 @@
           app:layout_constraintEnd_toEndOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-              android:id="@+id/description"
+              android:id="@+id/gallery_description"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:hint="@string/description_of_image"
