@@ -3,7 +3,7 @@
   <string name="action_settings">Settings</string>
   <!-- Strings used for fragments for navigation -->
   <string name="gallery_fragment_label">Gallery Fragment</string>
-  <string name="second_fragment_label">Second Fragment</string>
+  <string name="image_fragment_label">Image Fragment</string>
   <string name="next">Next</string>
   <string name="previous">Previous</string>
 
@@ -23,4 +23,6 @@
   <string name="description_of_image">Description of image</string>
   <string name="gallery_title">Title</string>
   <string name="description">Description</string>
+  <string name="image_title">Image Title</string>
+  <string name="image_description">Image Description</string>
 </resources>

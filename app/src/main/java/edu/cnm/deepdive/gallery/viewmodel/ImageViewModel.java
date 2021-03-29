@@ -19,7 +19,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import java.util.List;
 
 
-public class MainViewModel extends AndroidViewModel implements LifecycleObserver {
+public class ImageViewModel extends AndroidViewModel implements LifecycleObserver {
 
   private final UserRepository userRepository;
   private final ImageRepository imageRepository;
@@ -30,7 +30,7 @@ public class MainViewModel extends AndroidViewModel implements LifecycleObserver
   private final MutableLiveData<Throwable> throwable;
   private final CompositeDisposable pending;
 
-  public MainViewModel(
+  public ImageViewModel(
       @NonNull Application application) {
     super(application);
     userRepository = new UserRepository(application);
