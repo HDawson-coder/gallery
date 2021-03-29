@@ -63,7 +63,7 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
         .get() //picasso
         .load(uri) //RequestCreator
         .into(binding.image);
-    binding.title.addTextChangedListener(this); //allows user to select ok after inputting data
+//    binding.title.addTextChangedListener(this); //allows user to select ok after inputting data
     viewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
     // TODO Observe as necessary.
   }
@@ -85,14 +85,14 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
   private void checkSubmitConditions() {
     Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
     //noinspection ConstantConditions
-    positive.setEnabled(!binding.title.getText().toString().trim().isEmpty());
+//    positive.setEnabled(!binding.title.getText().toString().trim().isEmpty());
   }
 
   @SuppressWarnings("ConstantConditions")
   private void upload() {
-    String title = binding.title.getText().toString().trim();
-    String description = binding.description.getText().toString().trim();
-    viewModel.store(uri, title, (description.isEmpty() ? null : description));
+//    String title = binding.title.getText().toString().trim();
+//    String description = binding.description.getText().toString().trim();
+//    viewModel.store(uri, title, (description.isEmpty() ? null : description));
   }
 
 }

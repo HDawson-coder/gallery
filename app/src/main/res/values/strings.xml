@@ -21,4 +21,6 @@
   <string name="upload_properties_title">Upload Properties</string>
   <string name="title_of_image">Title of image</string>
   <string name="description_of_image">Description of image</string>
+  <string name="gallery_title">Title</string>
+  <string name="description">Description</string>
 </resources>
