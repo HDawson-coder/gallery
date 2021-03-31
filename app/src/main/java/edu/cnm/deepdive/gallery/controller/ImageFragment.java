@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import edu.cnm.deepdive.gallery.adapter.ImageAdapter;
 import edu.cnm.deepdive.gallery.adapter.ImageAdapter.OnImageClickHelper;
 import edu.cnm.deepdive.gallery.databinding.FragmentImageBinding;
@@ -43,11 +45,17 @@ public class ImageFragment extends Fragment implements OnImageClickHelper {
     }
     viewModel.getGallery(galleryId);
     viewModel.getGallery().observe(getViewLifecycleOwner(),(gallery) -> {
-      if (gallery != null) {
+      if (gallery.getImages() != null) {
         binding
             .imageView
             .setAdapter(
                 new ImageAdapter(getContext(), gallery.getImages(), this));
+      }
+    });
+    viewModel.getThrowable().observe(getViewLifecycleOwner(), (throwable) ->{
+      if (throwable != null) {
+        Snackbar.make(binding.getRoot(), throwable.getMessage(),
+            BaseTransientBottomBar.LENGTH_INDEFINITE).show();
       }
     });
   }

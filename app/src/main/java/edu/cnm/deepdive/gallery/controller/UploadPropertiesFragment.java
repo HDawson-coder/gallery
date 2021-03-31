@@ -76,6 +76,7 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
         .addTextChangedListener(this); //allows user to select ok after inputting data
     binding.galleryDescription.addTextChangedListener(this);
     imageViewModel = new ViewModelProvider(getActivity()).get(ImageViewModel.class);
+    galleryViewModel = new ViewModelProvider(getActivity()).get(GalleryViewModel.class);
     galleryViewModel.getGalleries().observe(getViewLifecycleOwner(),
         (galleries) -> this.galleries = galleries);
   }
