@@ -16,4 +16,5 @@
   <dimen name="layout_width">0dp</dimen>
   <dimen name="gallery_item_width">160dp</dimen>
   <dimen name="half_margin">8dp</dimen>
+  <dimen name="image_details_separator">15dp</dimen>
 </resources>

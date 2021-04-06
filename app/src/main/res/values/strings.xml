@@ -26,4 +26,10 @@
   <string name="image_title">Image Title</string>
   <string name="image_description">Image Description</string>
   <string name="gallery_title_in_image">Gallery Title In Image</string>
+  <string name="image_details_description">Image Details Description</string>
+  <string name="image_id">Image Id</string>
+  <string name="image_type">Image Type</string>
+  <string name="image_url">Image Url</string>
+  <string name="date_time">Date Uploaded</string>
+  <string name="gallery_image">Gallery Image</string>
 </resources>

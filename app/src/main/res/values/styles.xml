@@ -28,7 +28,12 @@
     <item name="android:textColor">#000000</item>
     <item name="android:layout_margin">@dimen/half_margin</item>
     <item name="android:padding">6dp</item>
+  </style>
 
+  <style name="Image_Attribute" parent="AppTheme">
+    <item name="android:layout_margin">@dimen/half_margin</item>
+    <item name="android:textColor">@android:color/black</item>
+    <item name="android:textSize">15dp</item>
   </style>
 
 </resources>

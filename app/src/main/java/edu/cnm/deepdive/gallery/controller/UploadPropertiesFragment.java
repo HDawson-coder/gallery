@@ -114,17 +114,17 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
 
   @SuppressWarnings("ConstantConditions")
   private void upload() {
-    String title = binding.galleryTitle.getText().toString().trim();
+    String title = binding.imageTitle.getText().toString().trim();
     String description = binding.galleryDescription.getText().toString().trim();
     String galleryTitle = binding.galleryTitle.getText().toString().trim();
     String titleId = "";
+    UUID galleryId = null;
     for (Gallery g: galleries) {
       if(g != null && galleryTitle.equals(g.getTitle())) {
-        titleId = g.getId().toString();
+        galleryId = g.getId();
       }
     }
-    UUID uuid = UUID.fromString(titleId);
-    imageViewModel.store(uuid, uri, title, (description.isEmpty() ? null : description));
+    imageViewModel.store(galleryId, uri, title, (description.isEmpty() ? null : description));
   }
 
 }
