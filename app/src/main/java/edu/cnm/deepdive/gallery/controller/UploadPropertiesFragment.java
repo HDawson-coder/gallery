@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -53,7 +55,12 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
         .setPositiveButton(android.R.string.ok,
             (dlg, which) -> upload()) /*uploads picture because user hit ok*/
         .create();
-    dialog.setOnShowListener((dlg) -> checkSubmitConditions());
+    dialog.setOnShowListener((dlg) -> {
+      binding.imageTitle.addTextChangedListener(this);
+      binding.galleryTitle.addTextChangedListener(this);
+      //allows user to select ok after inputting data
+      checkSubmitConditions();
+    });
     return dialog;
   }
 
@@ -71,14 +78,18 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
         .get() //picasso
         .load(uri) //RequestCreator
         .into(binding.image);
-    binding.imageTitle.addTextChangedListener(this);
-    binding.galleryTitle
-        .addTextChangedListener(this); //allows user to select ok after inputting data
-    binding.galleryDescription.addTextChangedListener(this);
     imageViewModel = new ViewModelProvider(getActivity()).get(ImageViewModel.class);
     galleryViewModel = new ViewModelProvider(getActivity()).get(GalleryViewModel.class);
     galleryViewModel.getGalleries().observe(getViewLifecycleOwner(),
-        (galleries) -> this.galleries = galleries);
+        (galleries) -> {
+          this.galleries = galleries;
+          AutoCompleteTextView simpleAutoText = binding.galleryTitle;
+          ArrayAdapter<Gallery> adapter = new ArrayAdapter<>(getContext(),
+              android.R.layout.simple_list_item_1, galleries);
+          simpleAutoText.setThreshold(1);
+          simpleAutoText.setAdapter(adapter);
+        });
+
   }
 
 
@@ -98,7 +109,7 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
   private void checkSubmitConditions() {
     Button positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
     //noinspection ConstantConditions
-//    positive.setEnabled(!binding.title.getText().toString().trim().isEmpty());
+    positive.setEnabled(!binding.imageTitle.getText().toString().trim().isEmpty());
   }
 
   @SuppressWarnings("ConstantConditions")
@@ -108,7 +119,7 @@ public class UploadPropertiesFragment extends DialogFragment implements TextWatc
     String galleryTitle = binding.galleryTitle.getText().toString().trim();
     String titleId = "";
     for (Gallery g: galleries) {
-      if(g!=null && galleryTitle.equals(g.getTitle())) {
+      if(g != null && galleryTitle.equals(g.getTitle())) {
         titleId = g.getId().toString();
       }
     }
